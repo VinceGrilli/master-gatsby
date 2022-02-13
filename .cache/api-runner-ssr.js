@@ -1,4 +1,10 @@
 var plugins = [{
+      plugin: require('G:/projects/slicks-slices/gatsby/node_modules/gatsby-plugin-styled-components/gatsby-ssr'),
+      options: {"plugins":[]},
+    },{
+      plugin: require('G:/projects/slicks-slices/gatsby/node_modules/gatsby-source-sanity/gatsby-ssr'),
+      options: {"plugins":[],"projectId":"h8t1g878","dataset":"production","watchMode":true,"token":"skV33tiuJu2ZiQqlGzGIhQKzfaLPaejZ4vsdZOX6EnK5c0Fqq9jt5OCwQWaWpZaryWuu8uhDeAvYSkhOm8bCemxoMrfgCkwmoIQg3zy6Sp1E8I3QcjKfQhHmJihdmNgdypwQp0Pv0sKvz75U4PdjMGOplAQvyR4mRphqnwcqmgPPaclIcokE"},
+    },{
       plugin: require('G:/projects/slicks-slices/gatsby/gatsby-ssr'),
       options: {"plugins":[]},
     }]
