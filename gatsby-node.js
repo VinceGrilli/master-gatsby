@@ -24,14 +24,47 @@ async function turnPizzasIntoPages({ graphql, actions }) {
       component: pizzaTemplate,
       // pass data from this template to single page
       context: {
-        vince: 'is cool',
         slug: pizza.slug.current,
       },
     });
   });
 }
 
+async function turnToppingsIntoPages({ graphql, actions }) {
+  // get a template for this page
+  const toppingTemplate = path.resolve('./src/pages/pizzas.js');
+  // query all toppings
+  const { data } = await graphql(`
+    query {
+      toppings: allSanityTopping {
+        nodes {
+          name
+          id
+        }
+      }
+    }
+  `);
+  // loop over each topping and create a page for that topping
+  data.toppings.nodes.forEach((topping) => {
+    actions.createPage({
+      // what is the url for this new page
+      path: `topping/${topping.name}`,
+      component: toppingTemplate,
+      // pass data from this template to single page
+      context: {
+        topping: topping.name,
+        // TODO Regex for topping
+      },
+    });
+    console.log(topping.name);
+  });
+}
+
 export async function createPages(params) {
   // create pages dynamiclly
-  await turnPizzasIntoPages(params);
+  // wait for all promises to be called before finishing this function...
+  await Promise.all([
+    turnPizzasIntoPages(params),
+    turnToppingsIntoPages(params),
+  ]);
 }
