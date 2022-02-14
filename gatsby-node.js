@@ -59,7 +59,7 @@ async function turnToppingsIntoPages({ graphql, actions }) {
     });
   });
 }
-// Using an externail api and putting into gatsby
+// Using an externail api and putting into our graphql
 async function fetchBeersAndTurnIntoNodes({
   actions,
   createNodeId,
