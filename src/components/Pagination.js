@@ -49,7 +49,7 @@ export default function Pagination({
         <Link
           className={currentPage === 1 && i === 0 ? 'current' : ''}
           to={`${base}/${i > 0 ? i + 1 : ''}`}
-          key={currentPage}
+          key={`${currentPage}+${Math.random() * 10}`}
         >
           {i + 1}
         </Link>
