@@ -104,7 +104,6 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
       }
     }
   `);
-  console.log(data);
   // TODO: turn each slicemaster into their own page
   const slicemasterTemplate = path.resolve('./src/templates/Slicemaster.js');
   data.slicemasters.nodes.forEach((person) => {
