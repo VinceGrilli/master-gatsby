@@ -9,7 +9,9 @@ export default function PizzaOrder({ order, pizzas, removeFromOrder }) {
     <>
       {order.map((singleOrder, index) => {
         // match singleOrder pizza in state to pizzas from query passed down through props
-        const pizza = pizzas.find((pizza) => pizza.id === singleOrder.id);
+        const pizza = pizzas.find(
+          (singlePizza) => singlePizza.id === singleOrder.id
+        );
         return (
           <MenuItemStyles key={singleOrder.id}>
             <Img fluid={pizza.image.asset.fluid} />
