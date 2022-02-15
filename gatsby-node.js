@@ -54,7 +54,6 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       // pass data from this template to single page
       context: {
         topping: topping.name,
-        // TODO Regex for topping
       },
     });
   });
@@ -105,7 +104,19 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
       }
     }
   `);
+  console.log(data);
   // TODO: turn each slicemaster into their own page
+  const slicemasterTemplate = path.resolve('./src/templates/Slicemaster.js');
+  data.slicemasters.nodes.forEach((person) => {
+    actions.createPage({
+      path: `slicemaster/${person.slug.current}`,
+      component: slicemasterTemplate,
+      context: {
+        slug: person.slug.current,
+        name: person.person,
+      },
+    });
+  });
   // figure out how many pages there are based on how many slicemasters there are and how many per page
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
   const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize);
@@ -114,7 +125,6 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
   // );
   // loop from 1 to n and create a page for them
   Array.from({ length: pageCount }).forEach((_, i) => {
-    console.log(`creating page ${i}`);
     actions.createPage({
       path: `slicemasters/${i + 1}`,
       component: path.resolve('./src/pages/slicemasters.js'),

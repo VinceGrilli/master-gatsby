@@ -12,6 +12,7 @@ exports.components = {
   "component---src-pages-order-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\pages\\order.js"))),
   "component---src-pages-pizzas-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\pages\\pizzas.js"))),
   "component---src-pages-slicemasters-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\pages\\slicemasters.js"))),
-  "component---src-templates-pizza-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\templates\\Pizza.js")))
+  "component---src-templates-pizza-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\templates\\Pizza.js"))),
+  "component---src-templates-slicemaster-js": (preferDefault(require("G:\\projects\\slicks-slices\\gatsby\\src\\templates\\Slicemaster.js")))
 }
 
