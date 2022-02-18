@@ -33,6 +33,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// function wait(ms = 0) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(resolve, ms);
+//   });
+// }
+
 // test send an email
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
@@ -45,14 +51,21 @@ exports.handler = async (event, context) => {
     if (!body[field])
       return {
         statusCode: 400,
-        body: `Oops! You are missing the ${field} field`,
+        body: JSON.stringify({
+          message: `Oops! You are missing the ${field} field`,
+        }),
       };
   }
+  // make sure there are items in the order
+  if (!body.order.length)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Why would you order nothing!?`,
+      }),
+    };
+
   // send the email
-
-  // send the success or error msg
-
-  // test send an email
   const info = await transporter.sendMail({
     from: "Slick's Slices <slick@example.com>",
     to: `${body.name} <${body.email}>, orders@example.com`,

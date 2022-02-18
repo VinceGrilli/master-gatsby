@@ -32,7 +32,7 @@ export default function usePizza({ pizzas, values }) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setMessage('Go Eat!');
+    // setMessage('Go Eat!');
 
     // gather all the data that needs to be sent
     const body = {
@@ -59,6 +59,7 @@ export default function usePizza({ pizzas, values }) {
       setLoading(false); // turn of loading
       setError(text.message);
     } else {
+      // it worked!
       setLoading(false);
       setMessage('Success! Come on down for your pizza!');
     }
