@@ -1,5 +1,28 @@
 const nodemailer = require('nodemailer');
 
+function generateOrderEmail({ order, total }) {
+  return `<div>
+    <h2>Your Recent Order for ${total}</h2>
+    <p>Please start walking over, we will have your order in ready in the next 20 minutes!</p>
+    <ul>
+      ${order
+        .map(
+          (item) => `<li>
+        <img src="${item.thumbnail}" alt="${item.name}"/>
+        ${item.size} ${item.name} - ${item.price}
+      </li>`
+        )
+        .join('')}
+    </ul>
+    <p>Your total is <strong>${total}</strong> due at pickup</p>
+    <style>
+        ul {
+          list-style: none;
+        }
+    </style>
+  </div>`;
+}
+
 // create a transport for nodemailer
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -11,17 +34,33 @@ const transporter = nodemailer.createTransport({
 });
 
 // test send an email
-
 exports.handler = async (event, context) => {
+  const body = JSON.parse(event.body);
+  console.log(body.thumbnail);
+  // validate the data commin in is correct
+  const requiredFields = ['email', 'name', 'order'];
+
+  for (const field of requiredFields) {
+    console.log(`checking that ${field} is good`);
+    if (!body[field])
+      return {
+        statusCode: 400,
+        body: `Oops! You are missing the ${field} field`,
+      };
+  }
+  // send the email
+
+  // send the success or error msg
+
+  // test send an email
   const info = await transporter.sendMail({
     from: "Slick's Slices <slick@example.com>",
-    to: 'orders@example.com',
+    to: `${body.name} <${body.email}>, orders@example.com`,
     subject: 'New Order!',
-    html: `<p>Your new pizza order is here!</p>`,
+    html: generateOrderEmail({ order: body.order, total: body.total }),
   });
-  console.log(info);
   return {
     statusCode: 200,
-    body: JSON.stringify(info),
+    body: JSON.stringify({ message: 'Success' }),
   };
 };

@@ -12,11 +12,11 @@ import PizzaOrder from '../components/PizzaOrder';
 import calculateOrderTotal from '../utils/calculateOrderTotal';
 
 export default function OrderPage({ data }) {
+  const pizzas = data.pizzas.nodes;
   const { values, updateValue } = useForm({
     name: '',
     email: '',
   });
-  const pizzas = data.pizzas.nodes;
   const {
     order,
     addToOrder,

@@ -6,6 +6,7 @@ import formatMoney from './formatMoney';
 
 export default function usePizza({ pizzas, values }) {
   // Create some state to hold our order
+
   // we got rid of this line because we moved state up to the provider ...
   // const [order, setOrder] = useState([]);
   // now we access both our state and our updater function (setOrder) via context
@@ -29,18 +30,18 @@ export default function usePizza({ pizzas, values }) {
   // this is the funtion that is run when someone submits the form
   async function submitOrder(e) {
     e.preventDefault();
-    console.log(e);
     setLoading(true);
     setError(null);
     setMessage('Go Eat!');
 
-    // gather all the date that needs to be sent
+    // gather all the data that needs to be sent
     const body = {
       order: attachNamesAndPrices(order, pizzas),
       total: formatMoney(calculateOrderTotal(order, pizzas)),
       name: values.name,
       email: values.email,
     };
+    // send this data to the serverless function when they check out
     const res = await fetch(
       `${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
       {
@@ -51,7 +52,7 @@ export default function usePizza({ pizzas, values }) {
         body: JSON.stringify(body),
       }
     );
-    const text = await JSON.parse(res.text());
+    const text = JSON.parse(await res.text());
 
     // check if everything worked
     if (res.status >= 400 && res.status < 600) {
