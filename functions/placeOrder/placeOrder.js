@@ -42,7 +42,15 @@ const transporter = nodemailer.createTransport({
 // test send an email
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
-  console.log(body.thumbnail);
+  // check if a bot filled out the honeypot
+  if (body.maplesyrup) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Beep Boop Beep zzzzzstt good bye ERRR 345255`,
+      }),
+    };
+  }
   // validate the data commin in is correct
   const requiredFields = ['email', 'name', 'order'];
 
